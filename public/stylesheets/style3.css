@@ -1,6 +1,6 @@
 body {
     background-image: linear-gradient(to left top, #17a2b8, #14abc4, #12b3d1, #11bcde, #12c5eb);
-    height: 62vh;
+    height: 100%;
 }
 
 #project .container #login-row #login-column .login-box {

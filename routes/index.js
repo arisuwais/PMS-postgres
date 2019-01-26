@@ -14,12 +14,6 @@ module.exports = function (pool) {
     });
   });
 
-  router.get('/add', function (req, res, next) {
-    res.render('add', {
-      loginMessage: req.flash('loginMessage')
-    });
-  });
-
   router.post('/login', function (req, res) {
     let emails = req.body.email;
     let passwords = req.body.password;
@@ -32,7 +26,7 @@ module.exports = function (pool) {
         res.redirect('/')
       } else {
         req.session.user = data.rows[0]
-        res.redirect('/profile')
+        res.redirect('/projects')
       }
     })
   })

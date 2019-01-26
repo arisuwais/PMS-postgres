@@ -5,7 +5,7 @@ var userChecker = require('../helper/userChecker')
 module.exports = function (pool) {
 
     router.get('/', function (req, res, next) {
-        const url = req.query.page ? req.url : '/?page=1';
+        const url = req.url == '/' ? '/?page=1' : req.url;
         const page = req.query.page || 1;
         const limit = 3;
         const offset = (page - 1) * limit
@@ -94,6 +94,30 @@ module.exports = function (pool) {
             })
         })
     });
+
+    // router.post('/', (req, res) => {
+
+    //     pool.query(`select count(*) from projects as total`, (err, count) => {
+    //         let name = req.body.name;
+    //         let total = count.rows[0].count;
+    //         total = parseInt(total) + 1
+    //         let fullname = req.query.fname
+    //         console.log(fullname);
+    //         pool.query(`insert into projects (projectid, name)values('${total}','${name}' )`, (err, data) => {
+
+    //             pool.query(`UPDATE members SET projectid = '${total}' WHERE userid = '${fullname}'`, (err, count) => {
+    //                 res.render('add', {
+    //                 })
+    //                 res.redirect('/projects')
+    //             })
+
+    //         })
+
+    //     })
+
+    // });
+
+
 
     return router;
 }

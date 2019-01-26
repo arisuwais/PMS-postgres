@@ -66,7 +66,7 @@ module.exports = function (pool) {
         INNER JOIN projects ON members.projectid = projects.projectid
         INNER JOIN users ON users.userid = members.userid WHERE projects.projectid IN
         (${subquery})`;
-            console.log(sqlMembers);
+            // console.log(sqlMembers);
 
             pool.query(sql, (err, projectData) => {
 
@@ -93,6 +93,26 @@ module.exports = function (pool) {
                 })
             })
         })
+    });
+
+
+    router.get('/delete/:id', function (req, res, next) {
+        let id = req.params.id;
+        console.log(req.params.id);
+        console.log(req.body.id);
+
+        pool.query(`delete from members where projectid= ${id}`,
+            req.body.id, (err) => {
+                if (err) return res.send(err)
+                pool.query(`delete from projects where projectid= ${id}`,
+                    req.body.id, (err) => {
+                        if (err) {
+                            console.error(err.messsage);
+                        }
+                        console.log('delete success');
+                        res.redirect('/projects');
+                    })
+            })
     });
 
     return router;
